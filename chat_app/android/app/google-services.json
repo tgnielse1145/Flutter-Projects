@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1025105530641",
+    "firebase_url": "https://uguard-todd-default-rtdb.firebaseio.com",
+    "project_id": "uguard-todd",
+    "storage_bucket": "uguard-todd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025105530641:android:db47dc026d737110f406b0",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025105530641-3s8djcoiok29sjsibqj4l8ovp5d3uns8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3ix5v_gZCqlz674CcshqlDirm6UUOoh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025105530641-3s8djcoiok29sjsibqj4l8ovp5d3uns8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025105530641:android:5b7977d53c54c2dff406b0",
+        "android_client_info": {
+          "package_name": "com.example.flutter_login_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025105530641-3s8djcoiok29sjsibqj4l8ovp5d3uns8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3ix5v_gZCqlz674CcshqlDirm6UUOoh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025105530641-3s8djcoiok29sjsibqj4l8ovp5d3uns8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025105530641:android:3972ccb191950294f406b0",
+        "android_client_info": {
+          "package_name": "com.example.uguard_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025105530641-3s8djcoiok29sjsibqj4l8ovp5d3uns8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3ix5v_gZCqlz674CcshqlDirm6UUOoh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025105530641-3s8djcoiok29sjsibqj4l8ovp5d3uns8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
