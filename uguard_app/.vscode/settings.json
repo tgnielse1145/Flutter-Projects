@@ -1,0 +1,4 @@
+{
+    "npm.enableRunFromFolder": true,
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
