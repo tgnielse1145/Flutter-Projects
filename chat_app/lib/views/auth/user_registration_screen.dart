@@ -1,14 +1,16 @@
 import 'dart:io';
+import 'dart:async';
+import 'package:chat_app/views/drawer/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/provider/address.dart';
-import 'package:chat_app/constants.dart';
 
 File? _image;
 
 class UserRegistrationScreen extends StatefulWidget {
+  static const routeName = '/user-registration';
   const UserRegistrationScreen({Key? key}) : super(key: key);
 
   @override
@@ -34,50 +36,73 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
     await Provider.of<Address>(context, listen: false).getUserAddress();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    _onCameraClick() {
-      final action = CupertinoActionSheet(
-        message: Text(
-          'addProfilePicture',
-          style: TextStyle(fontSize: 15.0),
-        ),
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            child: Text('chooseFromGallery'),
-            isDefaultAction: false,
-            onPressed: () async {
-              Navigator.pop(context);
-              XFile? image =
-                  await _imagePicker.pickImage(source: ImageSource.gallery);
-              if (image != null)
-                setState(() {
-                  _image = File(image.path);
-                });
-            },
-          ),
-          CupertinoActionSheetAction(
-            child: Text('takeAPicture'),
-            isDestructiveAction: false,
-            onPressed: () async {
-              Navigator.pop(context);
-              XFile? image =
-                  await _imagePicker.pickImage(source: ImageSource.camera);
-              if (image != null)
-                setState(() {
-                  _image = File(image.path);
-                });
-            },
-          )
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          child: Text('cancel'),
-          onPressed: () {
+  Future<void> retrieveLostData() async {
+    final LostDataResponse? response = await _imagePicker.retrieveLostData();
+    if (response == null) {
+      return;
+    }
+    if (response.file != null) {
+      setState(() {
+        _image = File(response.file!.path);
+      });
+    }
+  }
+
+  _onCameraClick() {
+    final action = CupertinoActionSheet(
+      message: Text(
+        'addProfilePicture',
+        style: TextStyle(fontSize: 15.0),
+      ),
+      actions: <Widget>[
+        CupertinoActionSheetAction(
+          child: Text('chooseFromGallery'),
+          isDefaultAction: false,
+          onPressed: () async {
             Navigator.pop(context);
+            XFile? image =
+                await _imagePicker.pickImage(source: ImageSource.gallery);
+            if (image != null)
+              setState(() {
+                _image = File(image.path);
+              });
           },
         ),
-      );
-      showCupertinoModalPopup(context: context, builder: (context) => action);
+        CupertinoActionSheetAction(
+          child: Text('takeAPicture'),
+        //  isDestructiveAction: false,
+          onPressed: () async {
+            Navigator.pop(context);
+            XFile? image = await _imagePicker.pickImage(
+              source: ImageSource.camera,
+             
+            );
+            if (image == null) {
+              return;
+            }
+            //if (image != null)
+            else {
+              setState(() {
+                _image = File(image.path);
+              });
+            }
+          },
+        )
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text('cancel'),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+    showCupertinoModalPopup(context: context, builder: (context) => action);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (Platform.isAndroid) {
+      retrieveLostData();
     }
 
     return Scaffold(
@@ -87,6 +112,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             IconButton(icon: const Icon(Icons.save), onPressed: () {})
           ],
         ),
+        drawer: MenuDrawer(),
         body: SingleChildScrollView(
             child: Container(
                 margin: EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
@@ -100,42 +126,33 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         child: Stack(
                             alignment: Alignment.bottomCenter,
                             children: <Widget>[
-                              Icon(Icons.camera_alt,
-                              size:125,
-                              color:Colors.red),
                               CircleAvatar(
-                                radius: 65,                                
-                                child: ClipOval(
-                                  child: SizedBox(
-                                    width: 170,
-                                    height: 170,
-                                    child: _image == null
-                                        ? Image.asset(
-                                            'assets/images/placeholder.jpg',
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Image.file(
-                                            _image!,
-                                            fit: BoxFit.cover,
-                                          ),
-                                  ),
-                                ),
+                                radius: 65,
+                                child:ClipOval(
+                                child:SizedBox( 
+                                  width: 170,
+                                  height: 170,
+                                  child: _image == null
+                                    ? Image.asset(
+                                        'assets/images/placeholder.jpg',
+                                        fit:BoxFit.cover)
+                                    : Image.file(_image!,
+                                    fit:BoxFit.cover),
+                               ) )),
+                              Positioned(
+                                right: 10,
+                                bottom: 0,
+                                child: FloatingActionButton(
+                                    backgroundColor: Colors.yellow,
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                    ),
+                                    mini: true,
+                                    onPressed: _onCameraClick),
                               ),
                             ]),
                       ),
-                      // Positioned.directional(
-                      //   textDirection: Directionality.of(context),
-                      //   start: 80,
-                      //   end: 0,
-                      //   child: FloatingActionButton(
-                      //       backgroundColor: Color(COLOR_ACCENT),
-                      //       child: Icon(
-                      //         Icons.camera_alt,
-                      //         color: Colors.black,
-                      //       ),
-                      //       mini: true,
-                      //       onPressed: _onCameraClick),
-                      // ),
                       TextFormField(
                         decoration: const InputDecoration(labelText: 'Name'),
                         textInputAction: TextInputAction.next,
