@@ -26,6 +26,7 @@ class _MenuDrawer extends State<MenuDrawer> {
               title: Text("Chat App"),             
               automaticallyImplyLeading: false,
           ),
+          Divider(),
            ListTile(
             leading: isLoaded==false?  Image.asset('assets/images/user_icon.png', height: 65.0, width: 65.0):ListTile(leading: Image.file(_profilePic!,width: 65,height: 65,),),
             title:Text('User Profile'),
@@ -40,6 +41,7 @@ class _MenuDrawer extends State<MenuDrawer> {
               onTap: () {
                 Navigator.of(context).pushNamed(HomeScreen.routeName);
               }),
+              Divider(),
            ListTile(
               leading: Icon(Icons.verified_user_outlined),
               title: Text('User'),

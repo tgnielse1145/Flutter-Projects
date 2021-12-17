@@ -7,9 +7,6 @@ import 'package:chat_app/views/animation/animation_screen.dart';
 import 'package:chat_app/views/home/home_screen.dart';
 import 'package:chat_app/views/user/user_profile_screen.dart';
 
-
-
-
 void main() async{ 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

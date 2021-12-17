@@ -1,3 +1,4 @@
+import 'package:chat_app/views/drawer/footer_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/views/drawer/menu_drawer.dart';
 
@@ -20,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen>{
         ),
         drawer: MenuDrawer(),
         body: SingleChildScrollView(
-        )
+        ),
+       // bottomNavigationBar: FooterDrawer(),
     );
   }
 }

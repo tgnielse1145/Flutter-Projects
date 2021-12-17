@@ -46,6 +46,7 @@ class Address with ChangeNotifier {
       }
       // String place_Address = extractedData["results"][0]["formatted_address"];
       String pl = "";
+      //String streetAddress=" ";
       String st1, st2, st3, st4, st5, st6;
       st1 = extractedData["results"][0]["address_components"][0]
           ["long_name"]; //street_number
@@ -60,6 +61,7 @@ class Address with ChangeNotifier {
       st6 = extractedData["results"][0]["address_components"][6]
           ["long_name"]; //postal code
       pl = st1 + ", " + st2 + ", " + st3 + ", " + st4 + ", " + st5 + ", " + st6;
+      //streetAddress=st1+ " "+ st2;
       return pl;
     } catch (error) {
       print(error);
@@ -69,31 +71,33 @@ class Address with ChangeNotifier {
 
   Future<void> getUserAddress() async {
 
-    LocationPermission permission;
-    permission=await Geolocator.checkPermission();
-    if(permission==LocationPermission.denied){
-      permission=await Geolocator.requestPermission();
-      if(permission==LocationPermission.denied){
-        return Future.error('Location permissions are denied');
-      }
-    }
+    // LocationPermission permission;
+    // permission=await Geolocator.checkPermission();
+    // if(permission==LocationPermission.denied){
+    //   permission=await Geolocator.requestPermission();
+    //   if(permission==LocationPermission.denied){
+    //     return Future.error('Location permissions are denied');
+    //   }
+    // }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     //Position currentPosition = position;
     double? lat = position.latitude;
     double? lng = position.longitude;
+    print('here is lat'+ lat.toString() + ' here is lng '+ lng.toString());
     //  user.latitude=lat;
     //  user.longitude=lng;
     latitude = position.latitude;
     longitude = position.longitude;
    
     var url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$GOOGLE_API_KEY');
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=AIzaSyAAfQrwB2dKtjUIVxj4z8Fseq2n6_0XDtU');
 
     Map<String, String> header = {
       'Content-Type': 'application/json',
       'Charset': 'utf-8'
     };
+
     try {
       final response = await http.get(url, headers: header);
       final extractedData = json.decode(response.body);
@@ -116,7 +120,17 @@ class Address with ChangeNotifier {
       st6 = extractedData["results"][0]["address_components"][6]
           ["long_name"]; //postal code
      String pl = st1 + ", " + st2 + ", " + st3 + ", " + st4 + ", " + st5 + ", " + st6;
-     print('Address = '+ pl);
+     String streetAddress= st1 + " "+ st2;
+     String city = st3;
+     String state=st4;
+     String postalCode = st6;
+     print("Street Adress "+ streetAddress);
+     print("City "+ city);
+     print("State "+ state);
+     print("Postal Code "+ postalCode);
+
+
+   // print('Address = '+ pl);
       return; // pl;
     } catch (error) {
       print(error);

@@ -1,6 +1,11 @@
-part of 'countercubit_cubit.dart';
+part of 'counter_cubit.dart';
 
-@immutable
-abstract class CountercubitState {}
+class CounterState {
+  int? counterValue;
+  bool? wasIncremented;
 
-class CountercubitInitial extends CountercubitState {}
+  CounterState({
+    @required this.counterValue,
+    this.wasIncremented,
+  });
+}

@@ -6,6 +6,10 @@ class User with ChangeNotifier{
   String? email;
   String? phone;
   String? image;
+  String? city;
+  String? state;
+  String? street;
+  int? zipCode;
   double? lat;
   double? lgt;
 
@@ -17,6 +21,10 @@ class User with ChangeNotifier{
     this.image,
     this.lat,
     this.lgt,
+    this.city,
+    this.state,
+    this.street,
+    this.zipCode,
     
   });
 

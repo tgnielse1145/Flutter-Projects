@@ -98,7 +98,32 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
     );
     showCupertinoModalPopup(context: context, builder: (context) => action);
   }
-
+_signUpWithEmailAndPassword() async {
+    // if (_key.currentState?.validate() ?? false) {
+    //   _key.currentState!.save();
+    //   await showProgress(context, 'creatingNewAccountPleaseWait'.tr(), false);
+    //   dynamic result = await FireStoreUtils.firebaseSignUpWithEmailAndPassword(
+    //       email!.trim(),
+    //       password!.trim(),
+    //       _image,
+    //       firstName!,
+    //       lastName!,
+    //       mobile!);
+    //   await hideProgress();
+    //   if (result != null && result is User) {
+    //     MyAppState.currentUser = result;
+    //     pushAndRemoveUntil(context, HomeScreen(user: result), false);
+    //   } else if (result != null && result is String) {
+    //     showAlertDialog(context, 'Failed'.tr(), result);
+    //   } else {
+    //     showAlertDialog(context, 'Failed'.tr(), 'Couldn\'t sign up'.tr());
+    //   }
+    // } else {
+    //   setState(() {
+    //     _validate = AutovalidateMode.onUserInteraction;
+    //   });
+    // }
+  }
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
@@ -214,9 +239,24 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                               Radius.circular(5),
                             ))),
                         onPressed: locatePosition,
-                      )
+                      ),
+                      ElevatedButton(
+                        child:Text('Sign Up',
+                        style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          onPrimary: Colors.white,
+                          shape:const BeveledRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                           )) ),
+                           
+                          onPressed: _signUpWithEmailAndPassword
+                        ),
+                         
                     ],
                   ),
                 ))));
   }
+  
 }
