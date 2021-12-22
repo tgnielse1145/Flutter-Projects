@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'package:chat_app/views/user/user_profile_screen.dart';
+import 'package:chat_app/views/profile/user_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/views/auth/user_registration_screen.dart';
 import 'package:chat_app/views/animation/animation_screen.dart';
 import 'package:chat_app/views/home/home_screen.dart';
+import 'package:chat_app/views/signup/signup_screen.dart';
+import 'package:chat_app/views/login/login_screen.dart';
 
 class MenuDrawer extends StatefulWidget {
   static const routeName = '/menu-drawer';
@@ -44,9 +45,9 @@ class _MenuDrawer extends State<MenuDrawer> {
               Divider(),
            ListTile(
               leading: Icon(Icons.verified_user_outlined),
-              title: Text('User'),
+              title: Text('Sign Up'),
               onTap: () {
-                Navigator.of(context).pushNamed(UserRegistrationScreen.routeName);
+                Navigator.of(context).pushNamed(SignUpScreen.routeName);
               }),
                 Divider(),
           ListTile(
@@ -68,6 +69,13 @@ class _MenuDrawer extends State<MenuDrawer> {
               title: Text('Animation'),
               onTap: () {
                 Navigator.of(context).pushNamed(AnimationScreen.routeName);
+              }),
+               Divider(),
+          ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.of(context).pushNamed(LoginScreen.routeName);
               }),
                Divider(),
           ListTile(

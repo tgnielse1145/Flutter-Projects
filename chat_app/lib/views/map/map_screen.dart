@@ -8,7 +8,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:chat_app/models/user.dart';
-import 'package:chat_app/constants.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class MapScreen extends StatefulWidget {
@@ -265,7 +264,7 @@ class _MapScreenState extends State<MapScreen> {
 
   void removeContactFromList(String key) {
    
-    int index = contactList.indexWhere((element) => element.userID == key);
+    //int index = contactList.indexWhere((element) => element.userID == key);
 
   }
 

@@ -1,9 +1,5 @@
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/flame.dart';
-import 'package:flame/components.dart';
-import 'package:flame/game.dart';
-import 'package:chat_app/views/drawer/menu_drawer.dart';
+
 
 class AnimationScreen extends StatefulWidget {
   static const routeName = '/animation-screen';

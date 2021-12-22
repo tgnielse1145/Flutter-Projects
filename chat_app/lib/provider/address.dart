@@ -119,7 +119,7 @@ class Address with ChangeNotifier {
           ["long_name"]; //country
       st6 = extractedData["results"][0]["address_components"][6]
           ["long_name"]; //postal code
-     String pl = st1 + ", " + st2 + ", " + st3 + ", " + st4 + ", " + st5 + ", " + st6;
+    // String pl = st1 + ", " + st2 + ", " + st3 + ", " + st4 + ", " + st5 + ", " + st6;
      String streetAddress= st1 + " "+ st2;
      String city = st3;
      String state=st4;
@@ -140,7 +140,7 @@ class Address with ChangeNotifier {
   }
   void updateDropOffLocationAddress(Address address){
 
-    Address dropOff=address;
+   // Address dropOff=address;
     notifyListeners();
   }
 }

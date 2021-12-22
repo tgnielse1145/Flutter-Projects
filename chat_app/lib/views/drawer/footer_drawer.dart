@@ -1,8 +1,5 @@
-import 'package:chat_app/views/user/user_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/views/home/home_screen.dart';
-import 'package:chat_app/constants.dart';
-import 'package:chat_app/views/animation/animation_screen.dart';
+
 
 class FooterDrawer extends StatefulWidget{
   @override
@@ -19,7 +16,7 @@ class _FooterDrawerState extends State<FooterDrawer>{
          style: TextStyle(color:Colors.red),
        ),
        
-      icon:Icon(Icons.car_rental,
+      icon:Icon(Icons.message,
         color: Colors.black,
         ),
        backgroundColor: Colors.yellow,
