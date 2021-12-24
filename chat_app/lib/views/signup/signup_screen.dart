@@ -17,6 +17,7 @@ import 'package:chat_app/provider/firebase_util.dart';
 
 File? _image;
 
+
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/signup-screen';
   const SignUpScreen({Key? key}) : super(key: key);
@@ -78,12 +79,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   _onCameraClick() {
     final action = CupertinoActionSheet(
       message: Text(
-        'addProfilePicture',
-        style: TextStyle(fontSize: 15.0),
+        'Add Profile Picture',
+        style: TextStyle(fontSize: 45.0,
+        fontFamily: 'HelloKetta'),
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('chooseFromGallery'),
+          child: Text('Choose From Gallery',
+          style: TextStyle(
+             fontFamily: 'ChanceryCursive',
+            fontSize: 30
+          )),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -97,7 +103,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text('takeAPicture'),
+          child: Text('Take A Picture',
+          style:TextStyle(
+             fontFamily: 'ChanceryCursive',
+            fontSize: 30
+          )),
           //  isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -223,6 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       print("City " + _city!);
       print("State " + _state!);
       print("Postal Code " + _postalCode!);
+      print('st5 '+ st5);
 
       // print('Address = '+ pl);
       return; // pl;
@@ -240,15 +251,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Sign Up',
+        style:TextStyle(
+          fontFamily: 'CandyCaneRegular',
+          fontSize:40
+        )),
         actions: <Widget>[
           IconButton(icon: const Icon(Icons.save), onPressed: () {})
         ],
       ),
       drawer: MenuDrawer(),
       body: SingleChildScrollView(
-        //  child: Container(
-           //   margin: EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
+          child: Container(
+              margin: EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
               child: Form(
                 key: _form,
                 child: Column(
@@ -406,7 +421,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               )
-           // )
+            )
           ),
       // floatingActionButton: FooterDrawer(),
     );

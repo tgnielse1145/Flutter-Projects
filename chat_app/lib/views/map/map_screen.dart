@@ -54,7 +54,7 @@ class _MapScreenState extends State<MapScreen> {
   StreamSubscription<Position>? userOverviewScreenStreamSubscription;
   bool isRequestingPositionDetails = false;
   String uName = "";
-  DatabaseReference userRequestRef = FirebaseDatabase.instance.reference();
+  DatabaseReference userRequestRef = FirebaseDatabase.instance.ref();
   String? encodedPoints;
   String? distanceText;
   int? distanceValue;

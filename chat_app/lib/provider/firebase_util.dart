@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/models/user.dart';
 
+
 class FirebaseUtil {
   
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -20,7 +21,8 @@ class FirebaseUtil {
      //  FirebaseFirestore firestore = FirebaseFirestore.instance;
      print('why wont this work ' + _email!);
   try {
-       auth.UserCredential result = await auth.FirebaseAuth.instance
+      // auth.UserCredential result =
+        await auth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _email, password: _password!);
               //print(result.user!.uid);
@@ -78,13 +80,32 @@ class FirebaseUtil {
     }
   }
   static Future<User?> getCurrentUser(String? uid) async {
+    print('USER_ID '+ uid!);
     DocumentSnapshot<Map<String, dynamic>> userDocument =
         await firestore.collection(USERS).doc(uid).get();
     if (userDocument.exists) {
+      // User _user = User.fromJson(userDocument.data() ?? {});
+      // print('User in firebaseUtil '+ _user.name!);
+      // Users users = Users();
+      // users.currUser=_user;
       return User.fromJson(userDocument.data() ?? {});
+     //return _user;
     } else {
       return null;
     }
+  }
+  static Future<User?> updateUser(User? user)async{
+    return await firestore
+    .collection(USERS)
+    .doc(user!.userID)
+    .set(user.toJson())
+    .then((document){
+      print('updated user');
+      return user;
+    }, onError: (e){
+      return null;
+    });
+  
   }
   static Future<dynamic> loginWithEmailAndPassword(
       String email, String password) async {
@@ -96,6 +117,7 @@ class FirebaseUtil {
       User? user;
       if (documentSnapshot.exists) {
         user = User.fromJson(documentSnapshot.data() ?? {});
+      
        // user.active = true;
        // user.fcmToken = await firebaseMessaging.getToken() ?? '';
         //await updateCurrentUser(user);

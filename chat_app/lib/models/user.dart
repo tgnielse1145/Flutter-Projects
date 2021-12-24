@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
@@ -64,7 +65,23 @@ factory User.fromJson(Map<String,dynamic>parsedJson){
     postalCode:parsedJson['postalCode']??'',
     profilePic:parsedJson['profilePic']??'',
 
-     );
+     ); 
+  }
+  factory User.fromDocument(DocumentSnapshot doc){
+  return User(
+    userID: doc.id,
+    name: doc['name'],
+    userName: doc['userName'],
+    email: doc['email'],
+    phone: doc['phone'],
+    lat: doc['lat'],
+    lgt: doc['lgt'],
+    city:doc['city'],
+    state:doc['state'],
+    street:doc['street'],
+    postalCode:doc['postalCode'],
+    profilePic:doc['profilePic'],
 
-}
+     ); 
+  }
 }
