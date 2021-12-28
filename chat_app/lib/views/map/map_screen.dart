@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:chat_app/views/drawer/menu_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:chat_app/models/user.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:chat_app/provider/firebase_util.dart';
+import 'package:chat_app/models/user.dart';
 
 class MapScreen extends StatefulWidget {
-  final User user;
-  const MapScreen({Key? key, required this.user}) : super(key: key);
+  static const routeName = '/map-screen';
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
    // target: LatLng(40.759689, -111.848555),
@@ -28,6 +30,7 @@ class _MapScreenState extends State<MapScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<User> userList = [];
   List<User> contactList = [];
+  final _auth = auth.FirebaseAuth.instance;
 
   bool isUserAvailable = false;
   final Completer<GoogleMapController> _controllerGoogleMap = Completer();
@@ -68,8 +71,8 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    user = widget.user;
-    getUserList();
+   // user = widget.user;
+   getUserList();
   }
 
   void getContactInfo() async {
@@ -88,16 +91,17 @@ class _MapScreenState extends State<MapScreen> {
     Future.forEach(result.docs,
         (QueryDocumentSnapshot<Map<String, dynamic>> element) {
       try {
-      //  userList.add(User.fromJson(element.data())); //.contacts = MyAppState.
+        userList.add(User.fromJson(element.data())); //.contacts = MyAppState.
 
       } catch (e) {
         print('FireStoreUtils.getMyUserList failed to parse object '
             '${element.id} $e');
       }
     });
-    userList.forEach((element) {
-      element.userID;
-    });
+    // userList.forEach((element) {
+    //   element.userID;
+    // });
+    print('USER_LIST3 '+ userList.length.toString());
     getContactInfo();
   }
 
@@ -122,7 +126,16 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
 
     createIconMarker();
-    return Stack(children: [
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Map Screen',
+        style: TextStyle(
+          fontFamily: 'CandyCaneRegular',
+          fontSize: 40
+        ))
+      ),
+      drawer: MenuDrawer(),
+      body:Stack(children: [
       GoogleMap(
         padding: EdgeInsets.only(bottom: bottomPaddingOfMap, top: 25.0),
         mapType: MapType.normal,
@@ -140,6 +153,8 @@ class _MapScreenState extends State<MapScreen> {
 
           locatePosition();
           getContactInfo();
+         // getAvailableContacts();
+         // getUserList();
         },
       ),
       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -178,7 +193,7 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ),
       ]),
-    ]);
+    ]));
   }
 
   void makeUserOnlineNow() async {
@@ -269,8 +284,16 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void updateContactLocation(User use) {}
+
   List<User> getAvailableContacts() {
-     List<User> listOfContacts = [];
+    String? _id = _auth.currentUser!.uid;
+    List<User>listOfUsers=[];
+    Future<List<User>> listOfContacts = FirebaseUtil.getAllUsers(_id);
+    listOfContacts.then((value){
+      if(value.isNotEmpty) value.forEach((element)=>listOfUsers.add(element));
+    });
+    print('listOfUsers.length '+ listOfUsers.length.toString());
+    //List<User>listOfUsers= listOfContacts.
     // userList.forEach((element) {
     //   if (user.contacts.containsKey(element.userID)) {
     //     if (user.contacts.containsValue(true)) {
@@ -283,7 +306,7 @@ class _MapScreenState extends State<MapScreen> {
     // }
     // listOfContacts = contactList;
     
-     return listOfContacts;
+     return listOfUsers;
   }
 
   void updateAvailableContactsOnMap() {

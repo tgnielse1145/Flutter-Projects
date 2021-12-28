@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:chat_app/provider/address.dart';
 import 'package:chat_app/views/animation/animation_screen.dart';
 import 'package:chat_app/views/home/home_screen.dart';
 import 'package:chat_app/views/profile/user_profile_screen.dart';
 import 'package:chat_app/views/splash/splash_screen.dart';
+import 'package:chat_app/views/splash/email_verification_splash_screen.dart';
 import 'package:chat_app/views/signup/signup_screen.dart';
 import 'package:chat_app/views/login/login_screen.dart';
+import 'package:chat_app/views/logout/logout_screen.dart';
+import 'package:chat_app/views/password/reset_password_screen.dart';
+import 'package:chat_app/views/map/map_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +52,9 @@ class MyApp extends StatelessWidget {
             AnimationScreen.routeName: (ctx) => AnimationScreen(),
             SignUpScreen.routeName:(ctx)=>SignUpScreen(),
             LoginScreen.routeName:(ctx)=>LoginScreen(),
+            LogoutScreen.routeName:(ctx)=>LogoutScreen(),
+            ResetPasswordScreen.routeName:(ctx)=>ResetPasswordScreen(),
+            MapScreen.routeName: (ctx)=>MapScreen()
           },
         ),
       ),

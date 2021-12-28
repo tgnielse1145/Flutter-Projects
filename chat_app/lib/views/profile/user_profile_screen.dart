@@ -101,6 +101,7 @@ Future<void> _saveForm() async{
   }
 
   createProfileView() {
+    if(auth.FirebaseAuth.instance.currentUser!=null){
     String? _id = auth.FirebaseAuth.instance.currentUser!.uid;
     return FutureBuilder<DocumentSnapshot>(
         // future:  FirebaseUtil.getCurrentUser(_id),
@@ -272,81 +273,185 @@ Future<void> _saveForm() async{
                             //_phone = value;
                           },
                         ),
-                        // TextFormField(
-                        //   decoration: InputDecoration(labelText: 'Password'),
-                        //   keyboardType: TextInputType.visiblePassword,
-                        //   obscureText: true,
-                        //  // controller: _passwordController,
-                        //  // focusNode: _passwordFocusNode,
-                        //   onFieldSubmitted: (_) {
-                        //     FocusScope.of(context)
-                        //         .requestFocus(_confirmPasswordFocusNode);
-                        //   },
-                        //   validator: validatePassword,
-
-                        //   // validator: (value) {
-                        //   //   validations.validatePassword(value!);
-                        //   // },
-                        //   // onSaved: (value) {
-                        //   //   _authData['password'] = value!;
-                        //   // },
-                        // ),
-                        // TextFormField(
-                        //   // enabled: _authMode == AuthMode.Signup,
-                        //   decoration:
-                        //       InputDecoration(labelText: 'Confirm Password'),
-                        //   keyboardType: TextInputType.visiblePassword,
-                        //   obscureText: true,
-                        //   focusNode: _confirmPasswordFocusNode,
-                        //   //controller: _passwordController,
-                        //   validator: (val) => validateConfirmPassword(
-                        //       _passwordController.text, val),
-                        //   onFieldSubmitted: (_) {
-                        //     // _saveForm();
-                        //   },
-                        //   onSaved: (value) {
-                        //     _password = value;
-                        //   },
-                        //   // validator: _authMode == AuthMode.Signup
-                        //     ? (value) {
-                        //         if (value != _passwordController.text) {
-                        //           return 'Passwords do not match!';
-                        //         }
-                        //       }
-                        //     : null,
-                        //  ),
-                        // ElevatedButton(
-                        //   child: Text(
-                        //     'Provide Location',
-                        //     style: TextStyle(color: Colors.white),
-                        //   ),
-                        //   style: ElevatedButton.styleFrom(
-                        //       onPrimary: Colors.white,
-                        //       shape: const BeveledRectangleBorder(
-                        //           borderRadius: BorderRadius.all(
-                        //         Radius.circular(5),
-                        //       ))),
-                        //  // onPressed: getUserAddress,
-                        //  onPressed: (){},
-                        // ),
-                        // ElevatedButton(
-                        //     child: Text(
-                        //       'Sign Up',
-                        //       style: TextStyle(color: Colors.white),
-                        //     ),
-                        //     style: ElevatedButton.styleFrom(
-                        //         onPrimary: Colors.white,
-                        //         shape: const BeveledRectangleBorder(
-                        //             borderRadius: BorderRadius.all(
-                        //           Radius.circular(5),
-                        //         ))),
-                        //    // onPressed: _saveForm
-                        //    onPressed: (){},
-                        //    ),
+                        
+                       
+                       
+                      
                       ],
                     ),
-                  )));
+                  ))
+                  );
         });
+    }
+    else{
+       return SingleChildScrollView(
+              child: Container(
+                  margin: EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
+                  child: Form(
+                    key: _form,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          //  padding: const EdgeInsets.all(11.0),
+                          child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: <Widget>[
+                                CircleAvatar(
+                                    radius: 65,
+                                    child: ClipOval(
+                                        child: SizedBox(
+                                      width: 170,
+                                      height: 170,
+                                      child: 
+                                           Image.asset(
+                                              'assets/images/placeholder.jpg',
+                                              fit: BoxFit.cover)
+                                          
+                                    ))),
+                                Positioned(
+                                  right: 10,
+                                  bottom: 0,
+                                  child: FloatingActionButton(
+                                      backgroundColor: Colors.yellow,
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.white,
+                                      ),
+                                      mini: true,
+                                      onPressed: _onCameraClick),
+                                ),
+                              ]),
+                        ),
+                        TextFormField(
+                          decoration:
+                              InputDecoration(labelText: 'UserName'),
+                             // initialValue: user!.userName,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.name,
+                          onFieldSubmitted: (_) {
+                            // FocusScope.of(context).requestFocus(_emailFocusNode);
+                          },
+                          validator: validateName,
+                          onSaved: (value) {
+                            user!.userName=value;
+                           // _userName = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'Name'),
+                         // initialValue: user!.name,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.name,
+                          onFieldSubmitted: (_) {
+                            // FocusScope.of(context).requestFocus(_emailFocusNode);
+                          },
+                          validator: validateName,
+                          onSaved: (value) {
+                            user!.name=value;
+                            //_name = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'Email'),
+                         // initialValue: user!.email,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.emailAddress,
+                          // focusNode: _emailFocusNode,
+                          onFieldSubmitted: (_) {
+                            //  FocusScope.of(context).requestFocus(_phoneFocusNode);
+                          },
+                          validator: validateEmail,
+                          onSaved: (value) {
+                            user!.email=value;
+                           // _email = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'Phone'),
+                         // initialValue: user!.phone,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.phone,
+                          // focusNode: _phoneFocusNode,
+                          onFieldSubmitted: (_) {
+                            //  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                          },
+                          validator: validatePhone,
+                          onSaved: (value) {
+                            user!.phone=value;
+                            //_phone = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'Street'),
+                         // initialValue: user!.street,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.streetAddress,
+                          // focusNode: _phoneFocusNode,
+                          onFieldSubmitted: (_) {
+                            //  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                          },
+                          // validator: validatePhone,
+                          onSaved: (value) {
+                            user!.street=value;
+                            // _phone = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'City'),
+                         // initialValue: user!.city,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.streetAddress,
+                          // focusNode: _phoneFocusNode,
+                          onFieldSubmitted: (_) {
+                            //  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                          },
+                          //validator: validatePhone,
+                          onSaved: (value) {
+                            user!.city=value;
+                            //_phone = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'State'),
+                         // initialValue: user!.state,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.streetAddress,
+                          // focusNode: _phoneFocusNode,
+                          onFieldSubmitted: (_) {
+                            //  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                          },
+                          // validator: validatePhone,
+                          onSaved: (value) {
+                            user!.state=value;
+                            // _phone = value;
+                          },
+                        ),
+                        TextFormField(
+                          decoration:
+                              InputDecoration(labelText: 'Postal Code'),
+                             // initialValue: user!.postalCode,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.phone,
+                          // focusNode: _phoneFocusNode,
+                          onFieldSubmitted: (_) {
+                            //  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                          },
+                          // validator: validatePhone,
+                          onSaved: (value) {
+                            user!.postalCode=value;
+                            //_phone = value;
+                          },
+                        ),
+                        
+                       
+                       
+                      
+                      ],
+                    ),
+                  ))
+                  );
+    }
   }
 
 // @override

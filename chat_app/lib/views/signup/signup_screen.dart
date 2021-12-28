@@ -60,7 +60,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void locatePosition() async {
-    // User user=User(name:'')
     await Provider.of<Address>(context, listen: false).getUserAddress();
   }
 
@@ -117,7 +116,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             if (image == null) {
               return;
             }
-            //if (image != null)
             else {
               setState(() {
                 _image = File(image.path);
@@ -143,17 +141,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return;
     }
     _form.currentState!.save();
-    // setState(() {
-
-    // });
     auth.UserCredential authResult;
     try {
-//    authResult = await _auth.createUserWithEmailAndPassword(email: _email!, password: _password!);
-//CAUser user = new CAUser(name: _name,userName: _userName, email: _email,phone: _phone,lat: _lat,lgt: _lgt,street: _street,city:_city, state: _state,postalCode: _postalCode);
-      //FirebaseUtil firebaseUtil = FirebaseUtil();
       authResult = await _auth.createUserWithEmailAndPassword(
           email: _email!, password: _password!);
-      //CAUser user = new CAUser(name: _name,userName: _userName, email: _email,phone: _phone,lat: _lat,lgt: _lgt,street: _street,city:_city, state: _state,postalCode: _postalCode);
       User user = new User(
           userID: authResult.user!.uid,
           name: _name,
@@ -168,12 +159,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           postalCode: _postalCode,
           profilePic: _profilePic);
       await FirebaseUtil.signUpUserWithEmailAndPassword(user, _password!);
-      //await firebaseUtil.createNewUser(user, _email, _password);
-//     await FirebaseFirestore.instance.collection(USERS)
-//           .doc(authResult.user!.uid)
-//           .set(user.toJson());
+      
+     _auth.currentUser!.sendEmailVerification();
+     _auth.currentUser!.emailVerified;
     } on PlatformException catch (err) {
-//         var message = 'An error occurred, pelase check your credentials!';
   if (err.message != null) {
        String message = err.message!;
        print(message);
@@ -257,7 +246,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           fontSize:40
         )),
         actions: <Widget>[
-          IconButton(icon: const Icon(Icons.save), onPressed: () {})
+          IconButton(icon: const Icon(Icons.save), onPressed: () {
+            _saveForm();
+          })
         ],
       ),
       drawer: MenuDrawer(),

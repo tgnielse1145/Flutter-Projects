@@ -84,12 +84,8 @@ class FirebaseUtil {
     DocumentSnapshot<Map<String, dynamic>> userDocument =
         await firestore.collection(USERS).doc(uid).get();
     if (userDocument.exists) {
-      // User _user = User.fromJson(userDocument.data() ?? {});
-      // print('User in firebaseUtil '+ _user.name!);
-      // Users users = Users();
-      // users.currUser=_user;
+     
       return User.fromJson(userDocument.data() ?? {});
-     //return _user;
     } else {
       return null;
     }
@@ -143,4 +139,19 @@ class FirebaseUtil {
       return 'Login failed, Please try again.';
     }
   }
+    static Future<List<User>> getAllUsers(String _id) async {
+      print('getAllUsers '+ _id);
+     List<User>users=[];
+      await firestore.collection(USERS).get().then((onValue){
+        Future.forEach(onValue.docs,
+         (DocumentSnapshot<Map<String, dynamic>>document){
+           if(document.id !=_id){
+             users.add(User.fromJson(document.data()??{}));
+           }
+         });
+      });
+      print('USERS.LENGTH '+ users.length.toString());
+return users;
+          }
+  
 }
