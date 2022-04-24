@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "uguard-app",
+    "staging": "uguard-app"
+  },
+  "targets": {}
+}

@@ -1,0 +1,70 @@
+{
+  "identifier" : "F2C2BB89",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "D0FEE8D8",
+      "localizations" : [
+
+      ],
+      "name" : "Example Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "3.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "922EB597",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "A lower level subscription.",
+              "displayName" : "Subscription Silver",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "io.instamobile.flutter.android.plan.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "io.instamobile.flutter.android.plan.monthly",
+          "subscriptionGroupID" : "D0FEE8D8",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "5.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "0BC7FF5E",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "A higher level subscription.",
+              "displayName" : "Subscription Gold",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "io.instamobile.flutter.android.plan.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "io.instamobile.flutter.android.plan.yearly",
+          "subscriptionGroupID" : "D0FEE8D8",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}
