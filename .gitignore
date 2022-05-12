@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-package-lock.json
+/package-lock.json
 
 
 # IntelliJ related
